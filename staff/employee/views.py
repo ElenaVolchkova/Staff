@@ -5,6 +5,6 @@ from staff.employee.models import Employee
 
 
 def employee_list(request):
-    employees = Employee.objects.all()
+    employees = Employee.objects.all().order_by('-level')
     context = {"employee_list": employees}
     return render(request, 'employee/employee_list.html', context)
