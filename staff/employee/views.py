@@ -1,7 +1,7 @@
 from django.shortcuts import render
 
 # Create your views here.
-from .models import Employee
+from staff.employee.models import Employee
 
 
 def employee_list(request):

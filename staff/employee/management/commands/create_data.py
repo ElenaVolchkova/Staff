@@ -1,7 +1,4 @@
-import os
-from django.conf import settings
 from django.core.management.base import BaseCommand
-import json
 from faker import Faker
 
 from staff.employee.models import Employee
@@ -18,17 +15,19 @@ class Command(BaseCommand):
         total = kwargs['total']
         fake = Faker(['ru_RU'])
         persons = []
-        employees = set()
+        ids = []
+        employees = []
         # for i in range(1, 500001):
         for i in range(1, total):
             id = i
+            ids.append(id)
             fields = dict()
             person = dict(model="employee.employee", pk=id, fields=fields)
             name = fake.name()
             position = fake.random_element(POSITION_CHOICES)
             salary = fake.random_int(min=500, max=5000, step=50)
             employment_date = fake.date()
-            chief = fake.random_int(min=1, max=total)
+            chief = fake.random_element(elements=ids)
             level = fake.random_int(min=1, max=5)
             fields['name'] = name
             fields['position'] = position
@@ -37,10 +36,9 @@ class Command(BaseCommand):
             fields['chief'] = chief
             fields['level'] = level
             persons.append(person)
-            employees.add(
-                Employee(name=name, position=position, salary=salary, employment_date=employment_date, chief=chief,
+            employees.append(
+                Employee(name=name, position=position, salary=salary, employment_date=employment_date, chief_id=chief,
                          level=level))
         Employee.objects.bulk_create(employees)
-        #     with open('staff/employee/fixtures/data.json', 'w+') as f:
-        #         json.dump(persons, f)
-        print(persons)
+
+
