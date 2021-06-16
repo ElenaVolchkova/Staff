@@ -1,0 +1,29 @@
+<!-- {% load static %} -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Employees</title>
+</head>
+<body>
+<table border="1">
+    <tr>
+        <th>ФИО:</th>
+        <th>Должность:</th>
+        <th>Дата приема на работу:</th>
+        <th>Начальник:</th>
+        <th>Зарплата:</th>
+    </tr>
+    {% for employee in employees %}
+    <tr>
+        <td>{{ employee.name }}</td>
+        <td>{{ employee.position }}</td>
+        <td>{{ employee.employment_date }}</td>
+        <td><a href="#">{{ employee.chief }}</a></td>
+        <td>{{ employee.salary }}</td>
+    </tr>
+    {% endfor %}
+</table>
+</body>
+</html>
