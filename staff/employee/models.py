@@ -28,4 +28,4 @@ class Employee(models.Model):
 
 
     def __str__(self):
-        return self.name
+        return f"{self.name} {self.id}"

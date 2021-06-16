@@ -48,7 +48,7 @@ class Command(BaseCommand):
         Employee.objects.bulk_create(employees)
         employees_n = Employee.objects.all()
         for employee in employees_n:
-            employee.chief = random.choice(employees_n)
+            employee.chief = random.choice(employees_n) # Изменить choice. Ограничение на выбор chief
             employee.save()
         # print(employees)
         # print(persons)
