@@ -1,16 +1,9 @@
-import os
 import random
-
 from django.conf import settings
 from django.core.management.base import BaseCommand
-import json
-
-from django.db.models import Q
 from faker import Faker
-
 from staff.employee.models import Employee
 
-# POSITION_CHOICES = ['СЕО', 'Middle', 'Junior', 'Senior', 'QA']
 
 class Command(BaseCommand):
     help = 'create data'
@@ -24,7 +17,6 @@ class Command(BaseCommand):
         persons = []
         ids = []
         employees = []
-        # for i in range(1, 500001):
         for i in range(1, total):
             id = i
             ids.append(id)
@@ -34,7 +26,6 @@ class Command(BaseCommand):
             position = fake.random_element(Employee.POSITION_CHOICES)
             salary = fake.random_int(min=500, max=5000, step=50)
             employment_date = fake.date()
-            # chief = fake.random_int(min=1, max=total)
             chief = fake.random_element(elements=ids)
             level = fake.random_int(min=1, max=5)
             fields['name'] = name
@@ -51,10 +42,9 @@ class Command(BaseCommand):
         employees_n = Employee.objects.all()
         for employee in employees_n:
             if employee.level != 5:
-                employee.chief = random.choice(employees_n) # Изменить choice. Ограничение на выбор chief
+                employee.chief = random.choice(employees_n)
                 employee.save()
             else:
-                employee.chief = None  # Изменить choice. Ограничение на выбор chief
+                employee.chief = None
                 employee.save()
-        # print(employees)
-        # print(persons)
+

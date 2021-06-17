@@ -1,3 +1,5 @@
+
+
 <!-- {% load static %} -->
 <!DOCTYPE html>
 <html lang="en">
@@ -6,55 +8,58 @@
       <title>Employees</title>
    </head>
    <body>
-      <table border="1">
-         <tr>
-            <th>ФИО:</th>
-            <th>Должность:</th>
-            <th>Дата приема на работу:</th>
-            <th>Начальник:</th>
-            <th>Зарплата:</th>
-            <th>level:</th>
-         </tr>
-         {% for employee in employee_list %}
-         <tr>
-            <td>{{ employee.name }}</td>
-            <td>{{ employee.position }}</td>
-            <td>{{ employee.employment_date }}</td>
-            <td><a href="#">{{ employee.chief }}</a></td>
-            <td>{{ employee.salary }}</td>
-            <td>{{ employee.level }}</td>
-         </tr>
-         {% endfor %}
-      </table>
+      <!--      <table border="1">-->
+      <!--         <tr>-->
+      <!--            <th>ФИО:</th>-->
+      <!--            <th>Должность:</th>-->
+      <!--            <th>Дата приема на работу:</th>-->
+      <!--            <th>Начальник:</th>-->
+      <!--            <th>Зарплата:</th>-->
+      <!--            <th>level:</th>-->
+      <!--         </tr>-->
+      <!--         {% for employee in employee_list %}-->
+      <!--         <tr>-->
+      <!--            <td>{{ employee.name }}</td>-->
+      <!--            <td>{{ employee.position }}</td>-->
+      <!--            <td>{{ employee.employment_date }}</td>-->
+      <!--            <td><a href="#">{{ employee.chief }}</a></td>-->
+      <!--            <td>{{ employee.salary }}</td>-->
+      <!--            <td>{{ employee.level }}</td>-->
+      <!--         </tr>-->
+      <!--         {% endfor %}-->
+      <!--      </table>-->
       <ul class="tree">
          {% for employee5 in staff5 %}
          <li>
-            {{ employee5.name }}
+            {{ employee5.name }} ({{ employee5.position }})
             {% for personal_item in personal %}
             {% if employee5.id == personal_item.chief_id %}
             <ul>
                <li>
-                  {{ personal_item.name }}
+                  {{ personal_item.name }} ({{ personal_item.position }})
                   {% for people_item in people %}
                   {% if personal_item.id == people_item.chief_id %}
                   <ul>
                      <li>
-                        {{ people_item.name }}
+                        {{ people_item.name }} ({{ people_item.position }})
                         {% for numero in numeros %}
                         {% if people_item.id == numero.chief_id %}
                         <ul>
                            <li>
-                              {{ numero.name }}
+                              {{ numero.name }} ({{ numero.position }})
                               {% for emp_e in emp_es %}
                               {% if numero.id == emp_e.chief_id %}
                               <ul>
-                                 <li>{{ emp_e.name }}
+                                 <li>{{ emp_e.name }} ({{ emp_e.position }})</li>
                               </ul>
                               {% endif %}{% endfor %}
+                           </li>
                         </ul>
                         {% endif %}{% endfor %}
+                     </li>
                   </ul>
                   {% endif %}{% endfor %}
+               </li>
             </ul>
             {% endif %}
             {% endfor %}
