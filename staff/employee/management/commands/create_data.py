@@ -4,6 +4,8 @@ import random
 from django.conf import settings
 from django.core.management.base import BaseCommand
 import json
+
+from django.db.models import Q
 from faker import Faker
 
 from staff.employee.models import Employee
@@ -48,7 +50,11 @@ class Command(BaseCommand):
         Employee.objects.bulk_create(employees)
         employees_n = Employee.objects.all()
         for employee in employees_n:
-            employee.chief = random.choice(employees_n) # Изменить choice. Ограничение на выбор chief
-            employee.save()
+            if employee.level != 5:
+                employee.chief = random.choice(employees_n) # Изменить choice. Ограничение на выбор chief
+                employee.save()
+            else:
+                employee.chief = None  # Изменить choice. Ограничение на выбор chief
+                employee.save()
         # print(employees)
         # print(persons)
